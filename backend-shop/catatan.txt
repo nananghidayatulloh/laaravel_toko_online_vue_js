@@ -1,0 +1,11 @@
+1. Pertama, kita akan membuat relasi One to Many (Inverse) antara table
+categories ke table products, yang artinya 1 data category bisa memiliki
+banyak data product. Dan 1 product hanya bisa dimiliki 1 category.
+2. Kedua, kita akan membuat relasi One To Many (Inverse) antara table
+invoices ke table orders.
+3. Ketiga, kita akan membuat relasi Onet To Many (Inverse) antara table
+customers ke table invoices.
+4. Keempat, kita akan membuat relasi One To Many (Inverse) anatara table
+products ke table carts.
+5. Kelima, kita akan membuat relasi One To Many (Inverse) antara table
+customers ke table carts.
