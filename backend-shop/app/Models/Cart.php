@@ -14,7 +14,27 @@ class Cart extends Model
 *
 * @var array
 */
-protected $fillable = [
+    protected $fillable = [
     'product_id', 'customer_id', 'price', 'quantity', 'weight'
     ];
+
+    /**
+    * product
+    *
+    * @return void
+    */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    /**
+    * customer
+    *
+    * @return void
+    */
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
