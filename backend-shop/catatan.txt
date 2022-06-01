@@ -1,6 +1,42 @@
+*** DATABASE
+
+run 
+php -S localhost:8000 -t public
+
+refresh
+//php artisan optimize --force
+php artisan config:cache
+php artisan route:cache
+
+- Mmebuat Model dan Migration
+php artisan make:model Category -m
+
+- Menjalankan Migration
+php artisan migrate
+
+
+- Eloquent Relationships
 1. Pertama, kita akan membuat relasi One to Many (Inverse) antara table
 categories ke table products, yang artinya 1 data category bisa memiliki
 banyak data product. Dan 1 product hanya bisa dimiliki 1 category.
+
+class Category extends Model
+{
+        public function products()
+        {
+           return $this->hasMany(Product::class);
+        }
+}
+
+
+class Product extends Model
+{
+    public function category()
+        {
+           return $this->belongsTo(Category::class);
+        }
+}
+
 2. Kedua, kita akan membuat relasi One To Many (Inverse) antara table
 invoices ke table orders.
 3. Ketiga, kita akan membuat relasi Onet To Many (Inverse) antara table
@@ -9,3 +45,62 @@ customers ke table invoices.
 products ke table carts.
 5. Kelima, kita akan membuat relasi One To Many (Inverse) antara table
 customers ke table carts.
+
+
+- Membuat seeder
+php artisan make:seed UserSeeder
+
+- Compile seeder
+composer dump-autoload
+
+- Menjalankan Seeder
+php artisan db:seed --class=UserSeeder
+
+
+*** AUTHENTICATION
+
+*  Installasi Laravel Fortify
+-composer require laravel/fortify
+-Publish Konfigurasi
+php artisan vendor:publish -- 
+pilih = [7 ] Provider: Laravel\Fortify\FortifyServiceProvider
+
+Jika berhasil, kita akan mendapatkan banyak file, diantaranya :
+
+app/Actions/Fortify/
+app/Providers/FortifyServiceProvider.php
+config/fortify.php
+database/migrations/2014_10_12_200000_add_two_factor_columns_to_users_table.php
+
+-php artisan migrate
+
+-buat function untuk auth di file app/Providers/FortifyServiceProvider.php sbb:
+//login
+Fortify::loginView(function () {
+return view('auth.login');
+});
+//forgot
+Fortify::requestPasswordResetLinkView(function () {
+return view('auth.forgot-password');
+});
+//reset
+Fortify::resetPasswordView(function ($request) {
+return view('auth.reset-password', ['request' => $request]);
+});
+//confirm password
+Fortify::confirmPasswordView(function () {
+return view('auth.confirm-password');
+});
+//two factor authentication
+Fortify::twoFactorChallengeView(function () {
+return view('auth.two-factor-challenge');
+});
+
+- untuk route view after login bisa dilihat di app/Providers/RouteServiceProvider.php
+
+*** Membuat Forgot dan Reset Password
+- Buat akun di Mailtrap terlebih dahulu, untuk mendapatkan kredensial SMTP username dan password
+- isi env untuk SMTP
+- Membuat Route Dashboard
+
+*** Membuat CRUD Category
