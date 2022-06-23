@@ -4,6 +4,11 @@ run
 php -S localhost:8000 -t public
 
 refresh
+php artisan cache:clear
+
+php artisan route:cache
+
+atau 
 //php artisan optimize --force
 php artisan config:cache
 php artisan route:cache
@@ -104,3 +109,11 @@ return view('auth.two-factor-challenge');
 - Membuat Route Dashboard
 
 *** Membuat CRUD Category
+-php artisan make:controller Admin\\CategoryController
+- Membuat Route Resource Category
+- Membuat View Index Category
+- php artisan vendor:publish --tag=laravel-pagination
+- Membuat View Create Category
+
+*** CRUD Product
+- php artisan make:controller Admin\\ProductController
